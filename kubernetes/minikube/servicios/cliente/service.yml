@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cliente
+spec:
+  selector:
+    app: cliente
+  ports:
+    - port: 8082
+      #PUERTO EXTERNO CMD O HTTP PROPERTIES CLIENTEFEIGN
+      targetPort: 8083
+      #PUERTO INTERNO MICROSERVICIOS
+  type: LoadBalancer

@@ -1,0 +1,2 @@
+create table if not exists ciudad (id_ciudad integer not null, provincia varchar(255), departamento varchar(255),fecha_Creacion DATE,primary key (id_ciudad));
+--create table if not exists ciudad (producto_id integer not null, descripcion varchar(255), departamento varchar(255),fecha_Creacion DATE,primary key (id_ciudad));

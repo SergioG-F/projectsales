@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: config-server
+      labels:
+        app: config-server
+    spec:
+      containers:
+        - name: cliente
+          image: sergiogf/config-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+              #PUERTO INTERNO MICROSERVICIOS UNIDO CON EL SERVICE.YML
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: config-server

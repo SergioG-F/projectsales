@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>projetcsales</artifactId>
+        <groupId>pe.com.nttdata</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <!--PARA GENERAR EL JAR O EMPAQUETAR-->
+    <packaging>jar</packaging>
+    <!--PARA GENERAR EL JAR O EMPAQUETAR-->
+
+    <artifactId>clientefeign</artifactId>
+    <!--LO DEL PROPERTIES SE BORRAR O LO COMENTAMOS-->
+<!--
+    <properties>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
+    </properties>
+    -->
+    <!--LO DEL PROPERTIES SE BORRAR O LO COMENTAMOS-->
+
+</project>

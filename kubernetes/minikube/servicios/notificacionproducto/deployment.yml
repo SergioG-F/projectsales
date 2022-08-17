@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notificacionproducto
+  labels:
+    app: notificacionproducto
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: notificacionproducto
+      labels:
+        app: notificacionproducto
+    spec:
+      containers:
+        - name: notificacionproducto
+          image: sergiogf/notificacionproducto:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8087
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: notificacionproducto

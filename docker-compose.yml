@@ -1,0 +1,179 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: nttdata
+      POSTGRES_PASSWORD: 1234
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5431:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - spring
+  rabbitmq:
+    image: rabbitmq:3.10.5-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - spring
+ # eureka-server:
+ #   image: sergiogf/eureka-server:latest
+ #   container_name: eureka-server
+ #   ports:
+ #     - "8761:8761"
+ #   environment:
+ #     - SPRING_PROFILES_ACTIVE=docker
+ #   networks:
+ #     - spring
+ #   depends_on:
+ #     - zipkin
+ # apigateway:
+ #   image: sergiogf/apigateway:latest
+ #   container_name: apigateway
+ #   ports:
+ #     - "8090:8090"
+ #   environment:
+ #     - SPRING_PROFILES_ACTIVE=docker
+ #   networks:
+  #    - spring
+   # depends_on:
+   #   - zipkin
+    #  - eureka-server
+  cliente:
+    image: sergiogf/cliente:latest
+    container_name: cliente
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+      - config-server
+#      - eureka-server
+  validarcliente:
+    image: sergiogf/validarcliente:latest
+    container_name: validarcliente
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - config-server
+#      - eureka-server
+  notificacion:
+    image: sergiogf/notificacion:latest
+    container_name: notificacion
+    ports:
+      - "8086:8086"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+      - config-server
+#      - eureka-server
+  producto:
+    image: sergiogf/producto:latest
+    container_name: producto
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+      - config-server
+#      - eureka-server
+  validarproducto:
+    image: sergiogf/validarproducto:latest
+    container_name: validarproducto
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - config-server
+#      - eureka-server
+  notificacionproducto:
+    image: sergiogf/notificacionproducto:latest
+    container_name: notificacionproducto
+    ports:
+      - "8087:8087"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - rabbitmq
+      - config-server
+#      - eureka-server
+  config-server:
+    image: sergiogf/config-server:latest
+    container_name: config-server
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+networks:
+  postgres:
+    driver: bridge
+  spring:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
