@@ -13,7 +13,7 @@ spec:
         app: config-server
     spec:
       containers:
-        - name: cliente
+        - name: config-server
           image: sergiogf/config-server:latest
           imagePullPolicy: Always
           ports:
