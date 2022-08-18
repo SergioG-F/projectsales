@@ -81,7 +81,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
-
+        <!--PARA LLAMAR AL CONFIGSERVER MICROSERVICIO PADRE-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <!--PARA LLAMAR AL CONFIGSERVER MICROSERVICIO PADRE-->
         <dependency>
             <groupId>pe.com.nttdata</groupId>
             <!--Importante el nombre del microservicio cliente-->
