@@ -33,11 +33,13 @@ public class ClienteServiceImpl implements IClienteService {
 
     public Cliente save(Cliente cliente)  {
          Cliente clienteResponse = clienteDao.save(cliente);
+
          ValidarClienteCheckResponse validarClienteCheckResponse = clienteCheckClient.validarCliente(
                     clienteResponse.getIdCliente());
          if (validarClienteCheckResponse.esEstafador()){
              throw new IllegalStateException ("El CLIENTE ES UN ESTAFADOR");
          }
+
 
         NotificacionRequest notificacionRequest = new NotificacionRequest(
                 cliente.getIdCliente(),

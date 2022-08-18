@@ -69,7 +69,7 @@ services:
     image: sergiogf/cliente:latest
     container_name: cliente
     ports:
-      - "8081:8081"
+      - "8083:8083"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:

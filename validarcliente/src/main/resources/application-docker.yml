@@ -1,6 +1,6 @@
 spring:
   application:
-    name: validarcliente
+    name: validarclientecheck
   config:
     import: "optional:configserver:http://config-server:8090"
   cloud:
