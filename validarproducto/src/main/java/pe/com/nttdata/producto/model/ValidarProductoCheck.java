@@ -1,4 +1,4 @@
-package pe.com.nttdata.model;
+package pe.com.nttdata.producto.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

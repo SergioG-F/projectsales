@@ -8,6 +8,8 @@ public interface IProductoService {
     public List<Producto> listProduct();
     public Producto obtenerProduct(Integer id);
     public Producto insertProduct(Producto producto);
+    public String validarProduct(Producto producto);
+    public void registrarNotificacionProduct(Producto producto);
     public Producto updateProduct(Producto producto);
     public int eliminarProduct(Integer id);
 

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.com.nttdata.cliente.model.Cliente;
 import pe.com.nttdata.producto.service.IProductoService;
 import pe.com.nttdata.producto.model.Producto;
 
@@ -30,6 +31,7 @@ public class ProductoController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> obtenerProduct(@PathVariable("id") Integer id) {
         log.info("obtener Producto: ", id);
+
         return new ResponseEntity<>(productoService.obtenerProduct(id), HttpStatus.OK);
     }
 
@@ -38,7 +40,15 @@ public class ProductoController {
     public ResponseEntity<?> registrarProduct(@Valid @RequestBody Producto producto) {
         log.info("nuevo registro de Producto {}", producto);
         Producto newproducto = productoService.insertProduct(producto);
-        return new ResponseEntity<>(newproducto, newproducto != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+
+        String resultado = productoService.validarProduct(newproducto);
+        log.info("Resultado  {}", resultado);
+
+        if(resultado.equals("OK")){
+            productoService.registrarNotificacionProduct(newproducto);
+            return new ResponseEntity<>(productoService , newproducto != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Servicio Validar Producto No Disponible ",HttpStatus.OK);
     }
 
     //ACTUALIZAR

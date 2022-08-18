@@ -1,6 +1,9 @@
 package pe.com.nttdata.cliente.service;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.com.nttdata.clientefeign.validar.cliente.ClienteCheckClient;
@@ -13,7 +16,7 @@ import pe.com.nttdata.clientequeues.rabbitmq.RabbitMQMessageProducer;
 
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ClienteServiceImpl implements IClienteService {
@@ -31,17 +34,33 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
 
-    public Cliente save(Cliente cliente)  {
+    public Cliente registrarCliente(Cliente cliente)  {
          Cliente clienteResponse = clienteDao.save(cliente);
-
-         ValidarClienteCheckResponse validarClienteCheckResponse = clienteCheckClient.validarCliente(
-                    clienteResponse.getIdCliente());
-         if (validarClienteCheckResponse.esEstafador()){
-             throw new IllegalStateException ("El CLIENTE ES UN ESTAFADOR");
-         }
+         return clienteResponse;
+    }
 
 
-        NotificacionRequest notificacionRequest = new NotificacionRequest(
+    @CircuitBreaker(name="validarclienteCB",fallbackMethod = "fallValidarClienteCB")
+    @Retry(name="validarclienteRetry")
+    public String validarCliente(Cliente cliente)  {
+        log.info("ESTOY EN METODO VALIDARCLIENTE");
+
+        ValidarClienteCheckResponse validarClienteCheckResponse = clienteCheckClient.validarCliente(
+                cliente.getIdCliente());
+        if (validarClienteCheckResponse.esEstafador()){
+            throw new IllegalStateException ("El CLIENTE ES UN ESTAFADOR");
+        }
+        return "OK";
+    }
+
+    public String fallValidarClienteCB(Cliente cliente, Exception e){
+        //AQUI PODEMOS LLAMAR A OTRO MICROSERVICIO DEPENDE LA LOGICA
+        return "NO_OK";
+
+    }
+
+    public void registrarNotificacion(Cliente cliente)  {
+       NotificacionRequest notificacionRequest = new NotificacionRequest(
                 cliente.getIdCliente(),
                 cliente.getEmail(),
                 String.format("Hola %s, bienvenidos a NTTData...",
@@ -53,7 +72,6 @@ public class ClienteServiceImpl implements IClienteService {
                 "internal.exchange",
                 "internal.notification.routing-key"
         );
-         return clienteResponse;
     }
 
     @Override

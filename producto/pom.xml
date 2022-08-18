@@ -95,6 +95,23 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--CIRCUR BRAKER-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!--CIRCUR BRAKER-->
+
         <!--Esto viene de ClienteFeign para unir al microservicio cliente-->
         <dependency>
             <groupId>pe.com.nttdata</groupId>

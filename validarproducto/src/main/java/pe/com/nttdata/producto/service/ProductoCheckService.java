@@ -1,9 +1,9 @@
-package pe.com.nttdata.service;
+package pe.com.nttdata.producto.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pe.com.nttdata.dao.IProductoValidarCheckDao;
-import pe.com.nttdata.model.ValidarProductoCheck;
+import pe.com.nttdata.producto.dao.IProductoValidarCheckDao;
+import pe.com.nttdata.producto.model.ValidarProductoCheck;
 
 import java.util.Date;
 

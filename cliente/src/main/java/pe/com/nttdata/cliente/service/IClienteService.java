@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface IClienteService {
     public List<Cliente> listarClientes();
-    //public Cliente registrarCliente(Cliente cliente);
-    public Cliente save(Cliente cliente);
+    public Cliente registrarCliente(Cliente cliente);
+    public String validarCliente(Cliente cliente);
+    public void registrarNotificacion(Cliente cliente);
     public Cliente modifyClient(Cliente cliente);
     public boolean deleteById(Integer idCliente);
     public Cliente findById(Integer id);

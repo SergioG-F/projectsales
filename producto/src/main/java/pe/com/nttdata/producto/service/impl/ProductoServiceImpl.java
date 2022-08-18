@@ -1,6 +1,9 @@
 package pe.com.nttdata.producto.service.impl;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pe.com.nttdata.producto.dao.IProductoDao;
 import pe.com.nttdata.producto.model.Producto;
@@ -11,6 +14,7 @@ import pe.com.nttdata.productofeign.validarproducto.ValidarProductoCheckResponse
 import pe.com.nttdata.productoqueues.rabbitmq.RabbitMQMessageProducer;
 
 import java.util.List;
+@Slf4j
 
 @Service
 @AllArgsConstructor
@@ -28,13 +32,25 @@ public class ProductoServiceImpl implements IProductoService {
     public Producto insertProduct(Producto producto) {
 
         Producto productoResponse = productoDao.save(producto);
+        return productoResponse;
+    }
+    @CircuitBreaker(name="validarclienteCB",fallbackMethod = "fallValidarClienteCB")
+    @Retry(name="validarclienteRetry")
+    public String validarProduct(Producto producto) {
+        log.info("ESTOY EN METODO VALIDARPRODUCTO");
+
         //ANTES DE INSERTAR VALIDAMOS SI ES UN PRODUCTO ESTAFADO
         //llamamos al ValidarProductoCheckResponse que viene del productofeign
         ValidarProductoCheckResponse validarProductoCheckResponse = productoCheck.validarProducto(
-                productoResponse.getIdProducto());
+                producto.getIdProducto());
         if(validarProductoCheckResponse.esEstafador()){
             throw new IllegalStateException("EL PRODUCTO ES ESTAFADO");
         }
+        return "NO_OK";
+    }
+
+
+    public void registrarNotificacionProduct(Producto producto) {
 
         //llamamos al NotificacionProductoRequest que viene del productofeign
         //dentro del cuerpo enviamos los parametros que elegimos.
@@ -52,8 +68,8 @@ public class ProductoServiceImpl implements IProductoService {
                 "internal.notification.routing-key"
         );
 
-        return productoResponse;
     }
+
 
     public Producto updateProduct(Producto producto) {
 

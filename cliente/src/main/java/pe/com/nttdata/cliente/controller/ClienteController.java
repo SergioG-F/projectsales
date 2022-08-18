@@ -31,12 +31,19 @@ public class ClienteController {
         log.info("obtener cliente: {}", cliente);
         return new ResponseEntity<>(cliente ,cliente!=null ?HttpStatus.OK:HttpStatus.NOT_FOUND);
     }
-    //sin valid  INSERT...
+    //INSERT...
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registrarCliente(@Valid @RequestBody Cliente cliente ){
         log.info("nuevo registro de cliente {}", cliente);
-        Cliente newcliente = clienteService.save(cliente);
-        return new ResponseEntity<>(newcliente , newcliente != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
+        Cliente newcliente = clienteService.registrarCliente(cliente);
+        String resultado = clienteService.validarCliente(newcliente);
+        log.info("Resultado  {}", resultado);
+
+        if(resultado.equals("OK")){
+            clienteService.registrarNotificacion(newcliente);
+            return new ResponseEntity<>(newcliente , newcliente != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Servicio Validar Cliente No Disponible ",HttpStatus.OK);
     }
     /*
     @PutMapping(value = "/{id}")
