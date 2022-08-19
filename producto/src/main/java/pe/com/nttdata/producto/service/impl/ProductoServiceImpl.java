@@ -33,8 +33,8 @@ public class ProductoServiceImpl implements IProductoService {
         Producto productoResponse = productoDao.save(producto);
         return productoResponse;
     }
-    @CircuitBreaker(name="validarclienteCB",fallbackMethod = "fallValidarClienteCB")
-    @Retry(name="validarclienteRetry")
+    @CircuitBreaker(name="validarproductoCB",fallbackMethod = "fallValidarProductoCB")
+    @Retry(name="validarproductoRetry")
     public String validarProduct(Producto producto) {
         log.info("ESTOY EN METODO VALIDARPRODUCTO");
 
@@ -47,7 +47,7 @@ public class ProductoServiceImpl implements IProductoService {
         }
         return "OK";
     }
-    public String fallValidarClienteCB(Producto producto, Exception e){
+    public String fallValidarProductoCB(Producto producto, Exception e){
         //AQUI PODEMOS LLAMAR A OTRO MICROSERVICIO DEPENDE LA LOGICA
         return "NO_OK";
 
