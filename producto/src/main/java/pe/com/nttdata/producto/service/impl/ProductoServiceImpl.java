@@ -48,7 +48,11 @@ public class ProductoServiceImpl implements IProductoService {
         }
         return "NO_OK";
     }
+    public String fallValidarClienteCB(Producto producto, Exception e){
+        //AQUI PODEMOS LLAMAR A OTRO MICROSERVICIO DEPENDE LA LOGICA
+        return "NO_OK";
 
+    }
 
     public void registrarNotificacionProduct(Producto producto) {
 

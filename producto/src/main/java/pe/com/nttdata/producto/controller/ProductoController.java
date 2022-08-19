@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.com.nttdata.cliente.model.Cliente;
 import pe.com.nttdata.producto.service.IProductoService;
 import pe.com.nttdata.producto.model.Producto;
 
@@ -46,7 +45,7 @@ public class ProductoController {
 
         if(resultado.equals("OK")){
             productoService.registrarNotificacionProduct(newproducto);
-            return new ResponseEntity<>(productoService , newproducto != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(newproducto , newproducto != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Servicio Validar Producto No Disponible ",HttpStatus.OK);
     }
