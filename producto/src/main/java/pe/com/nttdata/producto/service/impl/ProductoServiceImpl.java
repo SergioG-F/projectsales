@@ -5,17 +5,16 @@ import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pe.com.nttdata.producto.controller.NotificacionProductoRequest;
 import pe.com.nttdata.producto.dao.IProductoDao;
 import pe.com.nttdata.producto.model.Producto;
 import pe.com.nttdata.producto.service.IProductoService;
-import pe.com.nttdata.productofeign.notificacionproducto.NotificacionProductoRequest;
 import pe.com.nttdata.productofeign.validarproducto.ProductoCheck;
 import pe.com.nttdata.productofeign.validarproducto.ValidarProductoCheckResponse;
 import pe.com.nttdata.productoqueues.rabbitmq.RabbitMQMessageProducer;
 
 import java.util.List;
 @Slf4j
-
 @Service
 @AllArgsConstructor
 public class ProductoServiceImpl implements IProductoService {
@@ -59,8 +58,9 @@ public class ProductoServiceImpl implements IProductoService {
         //llamamos al NotificacionProductoRequest que viene del productofeign
         //dentro del cuerpo enviamos los parametros que elegimos.
 
-        NotificacionProductoRequest notificacionProductoRequest = new NotificacionProductoRequest(
+       NotificacionProductoRequest notificacionProductoRequest = new NotificacionProductoRequest(
                 producto.getIdProducto(),
+               producto.getPrecio(),
                 String.format("Producto :  %s. Bienvenidos a ProjectSales ",
                         producto.getDescripcion())
         );
