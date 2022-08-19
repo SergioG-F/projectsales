@@ -3,8 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-import pe.com.nttdata.notificacionproducto.controller.NotificacionProductoRequest;
 import pe.com.nttdata.notificacionproducto.service.INotificacionProductoService;
+import pe.com.nttdata.productofeign.notificacionproducto.NotificacionProductoRequest;
 
 @Component
 @AllArgsConstructor

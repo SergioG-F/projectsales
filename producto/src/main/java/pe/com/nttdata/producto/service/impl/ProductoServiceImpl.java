@@ -46,7 +46,7 @@ public class ProductoServiceImpl implements IProductoService {
         if(validarProductoCheckResponse.esEstafador()){
             throw new IllegalStateException("EL PRODUCTO ES ESTAFADO");
         }
-        return "NO_OK";
+        return "OK";
     }
     public String fallValidarClienteCB(Producto producto, Exception e){
         //AQUI PODEMOS LLAMAR A OTRO MICROSERVICIO DEPENDE LA LOGICA

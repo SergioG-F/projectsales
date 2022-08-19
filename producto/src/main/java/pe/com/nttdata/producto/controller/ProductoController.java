@@ -39,7 +39,6 @@ public class ProductoController {
     public ResponseEntity<?> registrarProduct(@Valid @RequestBody Producto producto) {
         log.info("nuevo registro de Producto {}", producto);
         Producto newproducto = productoService.insertProduct(producto);
-
         String resultado = productoService.validarProduct(newproducto);
         log.info("Resultado  {}", resultado);
 

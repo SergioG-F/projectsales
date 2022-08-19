@@ -2,10 +2,10 @@ package pe.com.nttdata.notificacionproducto.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pe.com.nttdata.notificacionproducto.controller.NotificacionProductoRequest;
 import pe.com.nttdata.notificacionproducto.dao.INotificacionProductoDao;
 import pe.com.nttdata.notificacionproducto.model.NotificacionProducto;
 import pe.com.nttdata.notificacionproducto.service.INotificacionProductoService;
+import pe.com.nttdata.productofeign.notificacionproducto.NotificacionProductoRequest;
 
 import java.util.Date;
 
@@ -18,7 +18,7 @@ public class NotificacionProductoService implements INotificacionProductoService
         notificacionproductoDao.save(
                 NotificacionProducto.builder()
                         .productoId(notificaproductoRequest.productoId())
-        //.productoEmail(notificaproductoRequest.productoEmail())
+                        //.productoEmail(notificaproductoRequest.productoEmail())
                         .productoEmail("TiendaEcommercer.trujillo.com.pe")
                         .remitente("PRODUCTO NTTDATA")
                         .mensaje(notificaproductoRequest.mensaje())
