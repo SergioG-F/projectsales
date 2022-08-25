@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: validarproducto
+  #Importante tiene que tener el mismo name que el microservicios del yml
+  name: validarproductocheck
 spec:
   selector:
-    app: validarproducto
+    app: validarproductocheck
   ports:
     - port: 8081
       targetPort: 8085

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: validarproducto
+  name: validarproductocheck
   labels:
-    app: validarproducto
+    app: validarproductocheck
 spec:
-  replicas: 1
+  replicas: 0
   template:
     metadata:
-      name: validarproducto
+      name: validarproductocheck
       labels:
-        app: validarproducto
+        app: validarproductocheck
     spec:
       containers:
-        - name: validarproducto
+        - name: validarproductocheck
           image: sergiogf/validarproducto:latest
           imagePullPolicy: Always
           ports:
@@ -24,4 +24,4 @@ spec:
       restartPolicy: Always
   selector:
     matchLabels:
-      app: validarproducto
+      app: validarproductocheck

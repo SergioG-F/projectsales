@@ -128,9 +128,11 @@ services:
       - rabbitmq
       - config-server
 #      - eureka-server
-  validarproducto:
+  # Puede ir cualquier name
+  validarproductocheck:
     image: sergiogf/validarproducto:latest
-    container_name: validarproducto
+    # Une al microservico con su name
+    container_name: validarproductocheck
     ports:
       - "8085:8085"
     environment:
