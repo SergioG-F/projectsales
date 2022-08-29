@@ -42,29 +42,29 @@ services:
       - "15672:15672"
     networks:
       - spring
- # eureka-server:
- #   image: sergiogf/eureka-server:latest
- #   container_name: eureka-server
- #   ports:
- #     - "8761:8761"
- #   environment:
- #     - SPRING_PROFILES_ACTIVE=docker
- #   networks:
- #     - spring
- #   depends_on:
- #     - zipkin
- # apigateway:
- #   image: sergiogf/apigateway:latest
- #   container_name: apigateway
- #   ports:
- #     - "8090:8090"
- #   environment:
- #     - SPRING_PROFILES_ACTIVE=docker
- #   networks:
-  #    - spring
-   # depends_on:
-   #   - zipkin
-    #  - eureka-server
+  eureka-server:
+    image: sergiogf/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+  apigateway:
+    image: sergiogf/apigateway:latest
+    container_name: apigateway
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - eureka-server
   cliente:
     image: sergiogf/cliente:latest
     container_name: cliente
@@ -80,7 +80,7 @@ services:
       - postgres
       - rabbitmq
       - config-server
-#      - eureka-server
+      - eureka-server
   validarcliente:
     image: sergiogf/validarcliente:latest
     container_name: validarcliente
@@ -95,7 +95,9 @@ services:
       - zipkin
       - postgres
       - config-server
-#      - eureka-server
+      - eureka-server
+      - apigateway
+
   notificacion:
     image: sergiogf/notificacion:latest
     container_name: notificacion
@@ -111,7 +113,23 @@ services:
       - postgres
       - rabbitmq
       - config-server
-#      - eureka-server
+      - eureka-server
+  autenticacion:
+    image: sergiogf/autenticacion:latest
+    container_name: autenticacion
+    ports:
+      - "8092:8092"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - config-server
+      - eureka-server
+      - apigateway
   producto:
     image: sergiogf/producto:latest
     container_name: producto
@@ -127,7 +145,7 @@ services:
       - postgres
       - rabbitmq
       - config-server
-#      - eureka-server
+      - eureka-server
   # Puede ir cualquier name
   validarproductocheck:
     image: sergiogf/validarproducto:latest
@@ -144,7 +162,7 @@ services:
       - zipkin
       - postgres
       - config-server
-#      - eureka-server
+      - eureka-server
   notificacionproducto:
     image: sergiogf/notificacionproducto:latest
     container_name: notificacionproducto
@@ -160,7 +178,7 @@ services:
       - postgres
       - rabbitmq
       - config-server
-#      - eureka-server
+      - eureka-server
   config-server:
     image: sergiogf/config-server:latest
     container_name: config-server
