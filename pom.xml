@@ -18,7 +18,9 @@
 		<module>productoqueues</module>
         <module>config-server</module>
         <module>autenticacion</module>
-    </modules>
+        <module>autenticationproduct</module>
+		<module>apigatewayproduct</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

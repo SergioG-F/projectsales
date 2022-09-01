@@ -1,0 +1,33 @@
+server:
+  port: 8088
+
+spring:
+  zipkin:
+    base-url: http://zipkin:9411
+  cloud:
+    gateway:
+      routes:
+        - id: producto
+          uri: lb://producto
+          predicates:
+            - Path=/api-projectsales/v1/producto/**
+          filters:
+            - AutorizacionFilter
+        - id: validarproductocheck
+          uri: lb://validarproductocheck
+          predicates:
+            - Path=/api-projectsales/v1/producto-check/**
+          filters:
+            - AutorizacionFilter
+        - id: autenticationproduct
+          uri: lb://autenticationproduct
+          predicates:
+            - Path=/api-projectsales/v1/autenticationproduct/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+#    enabled: false

@@ -58,7 +58,20 @@ services:
     image: sergiogf/apigateway:latest
     container_name: apigateway
     ports:
-      - "8090:8090"
+      - "8092:8092"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - zipkin
+      - eureka-server
+      - config-server
+  apigatewayproduct:
+    image: sergiogf/apigatewayproduct:latest
+    container_name: apigatewayproduct
+    ports:
+      - "8088:8088"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
@@ -120,7 +133,7 @@ services:
     image: sergiogf/autenticacion:latest
     container_name: autenticacion
     ports:
-      - "8092:8092"
+      - "8091:8091"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
@@ -132,6 +145,22 @@ services:
       - config-server
       - eureka-server
       - apigateway
+  autenticationproduct:
+    image: sergiogf/autenticationproduct:latest
+    container_name: autenticationproduct
+    ports:
+      - "8089:8089"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres
+    depends_on:
+      - zipkin
+      - postgres
+      - config-server
+      - eureka-server
+      - apigatewayproduct
   producto:
     image: sergiogf/producto:latest
     container_name: producto
@@ -165,6 +194,7 @@ services:
       - postgres
       - config-server
       - eureka-server
+      - apigatewayproduct
   notificacionproducto:
     image: sergiogf/notificacionproducto:latest
     container_name: notificacionproducto
