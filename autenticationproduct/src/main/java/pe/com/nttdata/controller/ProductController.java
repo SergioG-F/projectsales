@@ -3,40 +3,40 @@ package pe.com.nttdata.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.com.nttdata.dto.NuevoProductDto;
-import pe.com.nttdata.dto.RequestDto;
-import pe.com.nttdata.dto.TokenDto;
+import pe.com.nttdata.dto.NewProductDto;
 import pe.com.nttdata.dto.ProductDto;
-import pe.com.nttdata.model.ProductUsuario;
-import pe.com.nttdata.service.ProductUsuarioService;
+import pe.com.nttdata.dto.RequestProductDto;
+import pe.com.nttdata.dto.TokenProductDto;
+import pe.com.nttdata.model.Product;
+import pe.com.nttdata.service.ProductService;
 
 @RestController
 @RequestMapping("api-projectsales/v1/autenticationproduct")
 public class ProductController {
     @Autowired
-    ProductUsuarioService productusuarioService;
+    ProductService productService;
 
-    @PostMapping("/loginproduct")
-    public ResponseEntity<TokenDto> login(@RequestBody ProductDto dto){
-        TokenDto tokenDto = productusuarioService.login(dto);
-        if(tokenDto == null)
+    @PostMapping("/loginProduct")
+    public ResponseEntity<TokenProductDto> login(@RequestBody ProductDto productdto){
+        TokenProductDto tokenproductDto = productService.login(productdto);
+        if(tokenproductDto == null)
             return ResponseEntity.badRequest().build();
-        return ResponseEntity.ok(tokenDto);
+        return ResponseEntity.ok(tokenproductDto);
     }
 
-    @PostMapping("/validarproduct")
-    public ResponseEntity<TokenDto> validate(@RequestParam String token, @RequestBody RequestDto dto){
-        TokenDto tokenDto = productusuarioService.validate(token, dto);
-        if(tokenDto == null)
+    @PostMapping("/validarProduct")
+    public ResponseEntity<TokenProductDto> validate(@RequestParam String token, @RequestBody RequestProductDto productdto){
+        TokenProductDto tokenproductDto = productService.validate(token, productdto);
+        if(tokenproductDto == null)
             return ResponseEntity.badRequest().build();
-        return ResponseEntity.ok(tokenDto);
+        return ResponseEntity.ok(tokenproductDto);
     }
 
-    @PostMapping("/crearproduct")
-    public ResponseEntity<ProductUsuario> create(@RequestBody NuevoProductDto dto){
-        ProductUsuario usuario = productusuarioService.save(dto);
-        if(usuario == null)
+    @PostMapping("/crearProduct")
+    public ResponseEntity<Product> create(@RequestBody NewProductDto newproductdto){
+        Product product = productService.save(newproductdto);
+        if(product == null)
             return ResponseEntity.badRequest().build();
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(product);
     }
 }

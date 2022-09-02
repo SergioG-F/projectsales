@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autenticationproduct
+  labels:
+    app: autenticationproduct
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: autenticationproduct
+      labels:
+        app: autenticationproduct
+    spec:
+      containers:
+        - name: autenticationproduct
+          image: sergiogf/autenticationproduct:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8089
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: autenticationproduct

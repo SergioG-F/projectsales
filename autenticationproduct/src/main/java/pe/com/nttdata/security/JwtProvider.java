@@ -5,8 +5,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import pe.com.nttdata.dto.RequestDto;
-import pe.com.nttdata.model.ProductUsuario;
+import pe.com.nttdata.dto.RequestProductDto;
+import pe.com.nttdata.model.Product;
 
 import javax.annotation.PostConstruct;
 import java.util.Base64;
@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-
 public class JwtProvider {
     @Value("${jwt.secret}")
     private String secret;
@@ -28,11 +27,11 @@ public class JwtProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(ProductUsuario productusuario) {
+    public String createToken(Product product) {
         Map<String, Object> claims = new HashMap<>();
-        claims = Jwts.claims().setSubject(productusuario.getProductusuario());
-        claims.put("id", productusuario.getId());
-        claims.put("rol", productusuario.getRol());
+        claims = Jwts.claims().setSubject(product.getProductusuario());
+        claims.put("id", product.getId());
+        claims.put("rol", product.getRoles());
         Date now = new Date();
         Date exp = new Date(now.getTime() + 3600000);
         return Jwts.builder()
@@ -43,13 +42,13 @@ public class JwtProvider {
                 .compact();
     }
 
-    public boolean validate(String token, RequestDto dto) {
+    public boolean validate(String token, RequestProductDto dtoproduct) {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
         }catch (Exception e){
             return false;
         }
-        if(!isAdmin(token) && routeValidator.isAdminPath(dto))
+        if(!isAdmin(token) && routeValidator.isAdminPath(dtoproduct))
             return false;
         return true;
     }

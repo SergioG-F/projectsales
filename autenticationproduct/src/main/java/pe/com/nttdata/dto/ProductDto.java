@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProductDto {
     private String productusuario;
-    private String password;
+    private String passwords;
 }

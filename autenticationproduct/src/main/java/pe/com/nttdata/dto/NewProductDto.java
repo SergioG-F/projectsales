@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class TokenDto {
-    private String token;
-
+public class NewProductDto {
+    private String productusuario;
+    private String passwords;
+    private String roles;
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-public class ProductUsuario {
+public class Product {
     @Id
     @SequenceGenerator(
             name = "productusuario_id_sequence",
@@ -24,6 +24,6 @@ public class ProductUsuario {
     )
     private Integer id;
     private String productusuario;
-    private String password;
-    private String rol;
+    private String passwords;
+    private String roles;
 }

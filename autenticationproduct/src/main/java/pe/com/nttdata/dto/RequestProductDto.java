@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class NuevoProductDto {
-    private String productusuario;
-    private String password;
-    private String rol;
+public class RequestProductDto {
+    private String uri;
+    private String method;
 }

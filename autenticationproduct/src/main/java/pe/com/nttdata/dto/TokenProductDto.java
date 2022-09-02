@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class RequestDto {
-    private String uri;
-    private String method;
+public class TokenProductDto {
+    private String tokenproduct;
+
 }
