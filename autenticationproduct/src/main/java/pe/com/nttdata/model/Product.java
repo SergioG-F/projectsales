@@ -15,12 +15,12 @@ import javax.persistence.*;
 public class Product {
     @Id
     @SequenceGenerator(
-            name = "productusuario_id_sequence",
-            sequenceName = "productusuario_id_sequence"
+            name = "product_id_sequence",
+            sequenceName = "product_id_sequence"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "productusuario_id_sequence"
+            generator = "product_id_sequence"
     )
     private Integer id;
     private String productusuario;

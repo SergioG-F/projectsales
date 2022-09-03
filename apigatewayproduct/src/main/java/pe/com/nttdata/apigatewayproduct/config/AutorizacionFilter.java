@@ -31,7 +31,10 @@ public class AutorizacionFilter extends AbstractGatewayFilterFactory<Autorizacio
                 return onError(exchange, HttpStatus.BAD_REQUEST);
             return webClient.build()
                     .post()
-                    .uri("http://autenticacion/api-projectsales/v1/autenticacion/validar?token=" + chunks[1])
+                    // Viene del microservicio su name del ynm autenticationproduct
+                    // Viene del microservicio autenticationproduct del controller api-projectsales/v1/autenticationproduct
+                    // Viene del microservicio autenticationproduct del controller del PostMapping validarProduct
+                    .uri("http://autenticationproduct/api-projectsales/v1/autenticationproduct/validarProduct?token=" + chunks[1])
                     .bodyValue(new RequestDto(exchange.getRequest().getPath().toString(), exchange.getRequest().getMethod().toString()))
                     .retrieve().bodyToMono(TokenDto.class)
                     .map(t -> {

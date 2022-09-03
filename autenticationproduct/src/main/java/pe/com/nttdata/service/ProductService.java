@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
+
     @Autowired
     IProductoDao productDao;
 
@@ -25,7 +26,7 @@ public class ProductService {
     JwtProvider jwtProvider;
 
     public Product save( NewProductDto newproductdto) {
-        Optional<Product> product = productDao.findByProduct(newproductdto.getProductusuario());
+        Optional<Product> product = productDao.findByProductusuario(newproductdto.getProductusuario());
         if(product.isPresent())
             return null;
         String password = passwordEncoder.encode(newproductdto.getPasswords());
@@ -39,7 +40,7 @@ public class ProductService {
 
     public TokenProductDto login(ProductDto productdto) {
 
-        Optional<Product> product = productDao.findByProduct(productdto.getProductusuario());
+        Optional<Product> product = productDao.findByProductusuario(productdto.getProductusuario());
         if(!product.isPresent())
             return null;
         if(passwordEncoder.matches(productdto.getPasswords(), product.get().getPasswords()))
@@ -51,7 +52,7 @@ public class ProductService {
         if(!jwtProvider.validate(token, requestproductdto))
             return null;
         String productusuario = jwtProvider.getUserNameFromToken(token);
-        if(!productDao.findByProduct(productusuario).isPresent())
+        if(!productDao.findByProductusuario(productusuario).isPresent())
             return null;
         return new TokenProductDto(token);
     }

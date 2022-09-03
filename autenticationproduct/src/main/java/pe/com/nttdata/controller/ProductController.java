@@ -13,6 +13,7 @@ import pe.com.nttdata.service.ProductService;
 @RestController
 @RequestMapping("api-projectsales/v1/autenticationproduct")
 public class ProductController {
+
     @Autowired
     ProductService productService;
 
@@ -39,4 +40,6 @@ public class ProductController {
             return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(product);
     }
+
+
 }

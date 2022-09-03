@@ -82,13 +82,13 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-        <!--TIENE QUE SER ACCEDIDO DESDE SPRING-->
+        <!--TIENE QUE SER ACCEDIDO DESDE SPRING PARA ACCEDER TOKEN-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <!--TIENE QUE SER ACCEDIDO DESDE SPRING-->
+        <!--TIENE QUE SER ACCEDIDO DESDE SPRING PARA ACCEDER TOKEN-->
 
         <!--Llamamos a la libreria del productofeign-->
         <dependency>
