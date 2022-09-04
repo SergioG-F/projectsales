@@ -112,12 +112,6 @@
 
         <!--CIRCUR BRAKER-->
 
-        <!--PARA LLAMAR AL CONFIGSERVER MICROSERVICIO PADRE-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <!--PARA LLAMAR AL CONFIGSERVER MICROSERVICIO PADRE-->
 
         <!--Esto viene de ClienteFeign para unir al microservicio productofeign-->
         <dependency>
