@@ -112,10 +112,17 @@
 
         <!--CIRCUR BRAKER-->
 
-        <!--Esto viene de ClienteFeign para unir al microservicio cliente-->
+        <!--PARA LLAMAR AL CONFIGSERVER MICROSERVICIO PADRE-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <!--PARA LLAMAR AL CONFIGSERVER MICROSERVICIO PADRE-->
+
+        <!--Esto viene de ClienteFeign para unir al microservicio productofeign-->
         <dependency>
             <groupId>pe.com.nttdata</groupId>
-            <!--Importante el nombre del microservicio cliente-->
+            <!--Importante el nombre del microservicio productofeign-->
             <artifactId>productofeign</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
