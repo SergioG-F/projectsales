@@ -77,7 +77,7 @@ public class ClienteServiceImpl implements IClienteService {
                 "internal.notification.routing-key"
         );
     }
-    //KAFKA METODO
+    //KAFKA METODO NEW
     public void registrarNotificacionKafka(Cliente cliente) {
         NotificacionKafkaRequest notificacionKafkaRequest = new NotificacionKafkaRequest(
                 cliente.getIdCliente(),

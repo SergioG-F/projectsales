@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
         url = "${clientefeign.notificacionkafka.url}"
 )
 public interface NotificacionKafkaClient {
-    //el path viene de notificacion de pack controller NotificacionController
+    //el path viene de notificacionkafka de pack controller NotificacionKafkaController
 
     @PostMapping(path = "api-projectsales/v1/notificacionkafka")
     void enviarNotificacion(@RequestBody NotificacionKafkaRequest notificacionKafkaRequest);

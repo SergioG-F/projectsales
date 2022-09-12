@@ -41,6 +41,9 @@ public class ClienteController {
 
         if(resultado.equals("OK")){
             clienteService.registrarNotificacion(newcliente);
+            //Insert Kafka
+            clienteService.registrarNotificacionKafka(newcliente);
+
             return new ResponseEntity<>(newcliente , newcliente != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Servicio Validar Cliente No Disponible ",HttpStatus.OK);

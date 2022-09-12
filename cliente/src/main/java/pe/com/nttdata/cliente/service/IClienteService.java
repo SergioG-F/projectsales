@@ -1,5 +1,6 @@
 package pe.com.nttdata.cliente.service;
 
+import ch.qos.logback.core.net.server.Client;
 import pe.com.nttdata.cliente.model.Cliente;
 
 import java.util.List;
@@ -12,6 +13,11 @@ public interface IClienteService {
     public Cliente modifyClient(Cliente cliente);
     public boolean deleteById(Integer idCliente);
     public Cliente findById(Integer id);
+
+
+
+    public void registrarNotificacionKafka(Cliente cliente);
+
 /*
     public List<Cliente> listarClientesPorRuc(Integer ruc);
     public List<Cliente> listarClientesporEmail(String email);
