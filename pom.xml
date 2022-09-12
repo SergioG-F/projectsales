@@ -21,6 +21,7 @@
         <module>autenticationproduct</module>
 		<module>apigatewayproduct</module>
         <module>notificacionkafka</module>
+        <module>notificationkafkaproduct</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

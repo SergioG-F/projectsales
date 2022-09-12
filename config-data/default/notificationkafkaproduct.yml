@@ -1,0 +1,43 @@
+server:
+  port: 8094
+spring:
+  datasource:
+    password: 1234
+    url: jdbc:postgresql://localhost:5431/notificationkafkaproduct
+    username: nttdata
+  jpa:
+    database : POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  zipkin:
+    base-url: http://localhost:9411
+  rabbitmq:
+    addresses: localhost:5672
+# Consumidor
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      Cualquier nombre te pide si o si del grupo-id
+      group-id: notificationkafkaproduct
+      auto-offset-reset: earliest
+#para all project "*" para reservada
+      properties:
+        spring.json.trusted.packages: "*"
+#nombre del topico en el producto.yml
+    topic:
+      name: notificationkafkaproduct
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+#    enabled: false

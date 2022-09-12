@@ -27,6 +27,14 @@ spring:
     base-url: http://localhost:9411
   rabbitmq:
     addresses: localhost:5672
+  # KAFKA por defecto puerto 9092---
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      name: notificationkafkaproduct
 eureka:
   client:
     service-url:
