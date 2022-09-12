@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pe.com.nttdata.producto.controller.NotificacionProductoRequest;
 import pe.com.nttdata.producto.dao.IProductoDao;
+import pe.com.nttdata.producto.kafkaproducer.ProductProducer;
 import pe.com.nttdata.producto.model.Producto;
 import pe.com.nttdata.producto.service.IProductoService;
+import pe.com.nttdata.productofeign.notificationproductkafka.NotificationKafkaProductRequest;
 import pe.com.nttdata.productofeign.validarproducto.ProductoCheck;
 import pe.com.nttdata.productofeign.validarproducto.ValidarProductoCheckResponse;
 import pe.com.nttdata.productoqueues.rabbitmq.RabbitMQMessageProducer;
@@ -23,8 +25,14 @@ public class ProductoServiceImpl implements IProductoService {
     //PARA VALIDAR PRODUCTO ANTES DE INSERTAR LLAMAR PRODUCTO FEIGN registrar en el pom
     private final ProductoCheck productoCheck;
 
+
     //PARA ENVIAR MENSAJE A LA COLA ANTES DE INSERTAR LLAMAR PRODUCTOQUEUES registrar en el pom
     private final RabbitMQMessageProducer rabbitMQMessageProducer;
+
+    //KAFKA PRODUCT CONFIGURACION
+    private final ProductProducer productProducer;
+
+
     public List<Producto> listProduct() {
         return productoDao.findAll();
     }
@@ -72,6 +80,19 @@ public class ProductoServiceImpl implements IProductoService {
                 "internal.notification.routing-key"
         );
 
+    }
+
+    //KAFKA PRODUCT METODO NEW
+    public void registrarNotificacionKafkaProduct(Producto producto) {
+        NotificationKafkaProductRequest notificacionkafkaProductoRequest = new NotificationKafkaProductRequest(
+                producto.getIdProducto(),
+                producto.getPrecio(),
+                String.format("Producto :  %s. Bienvenidos a ProjectSales ",
+                        producto.getDescripcion())
+        );
+
+        //Generamos la cola si en caso de que cae el http queda aun en memoria KAFKA
+        productProducer.enviarMensaje(notificacionkafkaProductoRequest);
     }
 
 

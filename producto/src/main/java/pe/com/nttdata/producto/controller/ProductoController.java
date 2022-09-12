@@ -44,6 +44,9 @@ public class ProductoController {
 
         if(resultado.equals("OK")){
             productoService.registrarNotificacionProduct(newproducto);
+            //Insert Kafka Product
+            productoService.registrarNotificacionKafkaProduct(newproducto);
+
             return new ResponseEntity<>(newproducto , newproducto != null ? HttpStatus.OK: HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Servicio Validar Producto No Disponible ",HttpStatus.OK);

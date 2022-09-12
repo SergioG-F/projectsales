@@ -13,5 +13,7 @@ public interface IProductoService {
     public Producto updateProduct(Producto producto);
     public int eliminarProduct(Integer id);
 
+    public void registrarNotificacionKafkaProduct(Producto producto);
+
 
 }
