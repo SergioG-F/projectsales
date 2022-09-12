@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.com.nttdata.cliente.kafka.producer.ClienteProducer;
+import pe.com.nttdata.clientefeign.notificacionkafka.NotificacionKafkaRequest;
 import pe.com.nttdata.clientefeign.validar.cliente.ClienteCheckClient;
 import pe.com.nttdata.clientefeign.validar.cliente.ValidarClienteCheckResponse;
 import pe.com.nttdata.cliente.controller.NotificacionRequest;
@@ -26,6 +28,8 @@ public class ClienteServiceImpl implements IClienteService {
 
     private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
+    //KAFKA CONFIGURACION
+    private final ClienteProducer clienteProducer;
 
     @Override
     @Transactional(readOnly = true)
@@ -73,6 +77,17 @@ public class ClienteServiceImpl implements IClienteService {
                 "internal.notification.routing-key"
         );
     }
+    //KAFKA METODO
+    public void registrarNotificacionKafka(Cliente cliente) {
+        NotificacionKafkaRequest notificacionKafkaRequest = new NotificacionKafkaRequest(
+                cliente.getIdCliente(),
+                cliente.getEmail(),
+                String.format("Hola %s, bienvenidos a NTTData...",
+                        cliente.getNombres())
+        );
+        clienteProducer.enviarMensaje(notificacionKafkaRequest);
+    }
+
 
     @Override
     public Cliente modifyClient(Cliente cliente) {
