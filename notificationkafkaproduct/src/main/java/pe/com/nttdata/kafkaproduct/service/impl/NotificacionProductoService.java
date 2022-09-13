@@ -7,6 +7,7 @@ import pe.com.nttdata.kafkaproduct.dao.INotificacionProductoDao;
 import pe.com.nttdata.kafkaproduct.model.NotificacionProducto;
 import pe.com.nttdata.kafkaproduct.service.INotificacionProductoService;
 import pe.com.nttdata.productofeign.notificacionproducto.NotificacionProductoRequest;
+import pe.com.nttdata.productofeign.notificationproductkafka.NotificationKafkaProductRequest;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
 public class NotificacionProductoService implements INotificacionProductoService {
     private final INotificacionProductoDao notificacionproductoDao;
 
-    public boolean enviarNotificacion(NotificacionProductoRequest notificaproductoRequest){
+    public boolean enviarNotificacion(NotificationKafkaProductRequest notificaproductoRequest){
         notificacionproductoDao.save(
                 NotificacionProducto.builder()
                         .productoId(notificaproductoRequest.productoId())

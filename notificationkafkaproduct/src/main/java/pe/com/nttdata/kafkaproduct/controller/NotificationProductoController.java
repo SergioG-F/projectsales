@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.com.nttdata.kafkaproduct.service.INotificacionProductoService;
 import pe.com.nttdata.productofeign.notificacionproducto.NotificacionProductoRequest;
+import pe.com.nttdata.productofeign.notificationproductkafka.NotificationKafkaProductRequest;
 
 @RestController
 @RequestMapping("api-projectsales/v1/notificationkafkaproduct")
@@ -17,7 +18,7 @@ public class NotificationProductoController {
     private final INotificacionProductoService notificacionproductoService;
 
     @PostMapping
-    public void enviarNotificacion(@RequestBody NotificacionProductoRequest notificacionproductoRequest) {
+    public void enviarNotificacion(@RequestBody NotificationKafkaProductRequest notificacionproductoRequest) {
         log.info("Nueva notificacion... {}", notificacionproductoRequest);
         notificacionproductoService.enviarNotificacion(notificacionproductoRequest);
     }

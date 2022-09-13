@@ -1,7 +1,7 @@
 package pe.com.nttdata.kafkaproduct.service;
-import pe.com.nttdata.productofeign.notificacionproducto.NotificacionProductoRequest;
+import pe.com.nttdata.productofeign.notificationproductkafka.NotificationKafkaProductRequest;
 
 public interface INotificacionProductoService {
-    public boolean enviarNotificacion(NotificacionProductoRequest notificaRequest) ;
+    public boolean enviarNotificacion(NotificationKafkaProductRequest notificaproductoRequest) ;
 
 }
