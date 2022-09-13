@@ -110,6 +110,15 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+
+        <!--KAFKA-->
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <!--KAFKA-->
+
         <!--CIRCUR BRAKER-->
 
 

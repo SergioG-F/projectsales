@@ -21,11 +21,11 @@ public class ProductProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void enviarMensaje(NotificationKafkaProductRequest notificacionKafkaRequest){
-        log.info("Notificación Kafka Product producer: {}", notificacionKafkaRequest);
+    public void enviarMensaje(NotificationKafkaProductRequest notificacionproductKafkaRequest){
+        log.info("Notificación Kafka Product producer: {}", notificacionproductKafkaRequest);
 
         Message<NotificationKafkaProductRequest> message = MessageBuilder
-                .withPayload(notificacionKafkaRequest)
+                .withPayload(notificacionproductKafkaRequest)
                 .setHeader(KafkaHeaders.TOPIC, topic.name())
                 .build();
 

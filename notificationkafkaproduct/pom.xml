@@ -75,6 +75,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
         </dependency>
+
         <!--KAFKA-->
 
         <dependency>
@@ -89,10 +90,6 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <!--PARA LLAMAR AL CONFIGSERVER MICROSERVICIO PADRE-->
-
-
-        <!--PARA LLAMAR AL LIBRERIA PRODUCTFEIGN-->
-
         <dependency>
             <groupId>pe.com.nttdata</groupId>
             <artifactId>productofeign</artifactId>
